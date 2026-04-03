@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLock | Arquitetura</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🔐 Smart<span>Lock</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="plataforma.html">PLATAFORMA</a></li>
+                <li><a href="dispositivo.html">DISPOSITIVO</a></li>
+                <li><a href="aplicativo.html">APLICATIVO</a></li>
+                <li><a href="projeto.html">PROJETO</a></li>
+                <li><a href="estrutura.html" class="active">ESTRUTURA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h1>Engenharia do SmartLock</h1>
+            <p style="max-width: 800px; margin: 0 auto;">Uma visão aprofundada da stack tecnológica e da estrutura modular que compõe o ecossistema do SmartLock.</p>
+        </div>
+
+        <div class="card" style="margin-bottom: 40px;">
+            <h2>Stack Tecnológica</h2>
+            <div class="grid-3" style="margin-top: 20px;">
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">DeepFace</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Motor de reconhecimento facial VGG-Face</p>
+                    <span class="badge ia">IA</span>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">OpenCV-python</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Processamento de vídeo e captura de frames</p>
+                    <span class="badge ia">IA</span>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Django</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Servidor Web & API RESTful</p>
+                    <span class="badge cloud">FRAMEWORK</span>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">MySQL</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Banco de dados relacional persistente</p>
+                    <span class="badge cloud">BANCO DE DADOS</span>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">paho-mqtt</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Cliente MQTT para o backend Python</p>
+                    <span class="badge hardware">IoT</span>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">PubSubClient</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Biblioteca MQTT para NodeMCU</p>
+                    <span class="badge hardware">IoT</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Módulos do Backend</h2>
+            <p>A arquitetura modular do backend simplifica a manutenção e expansão do sistema.</p>
+            <div class="grid-3" style="margin-top: 20px;">
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Processamento IA</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Módulo que recebe a imagem e utiliza DeepFace para gerar o veredito (liberado/negado).</p>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Gestão MQTT</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Camada de comunicação para publicação de comandos e inscrição de eventos de hardware.</p>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Gestão de Usuários</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Interface web para cadastro de novos rostos (fotos) e visualização de dados.</p>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Banco de DadosMySQL</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Persistência de dados de usuários e logs de acesso no MySQL.</p>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Serviços Web API</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Endpoints para captura de vídeo, solicitação de identificação e cadastro.</p>
+                </div>
+                <div style="padding: 15px; border: 1px solid var(--border-color); background: var(--bg-card); border-radius: 8px;">
+                    <h3 style="color: var(--text-light);">Painel Admin</h3>
+                    <p style="font-size: 14px; color: var(--text-muted);">Módulo administrativo para visualizar logs de auditoria de acesso.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 João Henrique Corrêa de Araújo | Faculdade Nova Roma</p>
+    </footer>
+</body>
+</html>

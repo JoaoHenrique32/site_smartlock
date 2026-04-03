@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLock | Dispositivo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🔐 Smart<span>Lock</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="plataforma.html">Plataforma</a></li>
+                <li><a href="dispositivo.html" class="active">Dispositivo</a></li>
+                <li><a href="aplicativo.html">Aplicativo</a></li>
+                <li><a href="projeto.html">Projeto</a></li>
+                <li><a href="estrutura.html">ESTRUTURA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <h1>Engenharia de Hardware</h1>
+        <p>A inteligência do software se conecta ao mundo físico através de uma arquitetura IoT robusta e de baixa latência.</p>
+
+        <div class="grid-2">
+            <div class="card">
+                <h2>O Cérebro Físico: NodeMCU</h2>
+                <p>O coração do sistema no lado da porta é o microcontrolador <strong>ESP8266-12 V2 (NodeMCU)</strong>. Equipado com conectividade Wi-Fi nativa, ele atua como um "ouvinte" silencioso na rede.</p>
+                <p>Utilizando o protocolo MQTT, ele aguarda instruções criptografadas. Ao receber o comando de status "LIBERADO", ele aciona imediatamente o circuito de potência.</p>
+            </div>
+
+            <div class="card">
+                <h2>Ação Mecânica: Solenoide</h2>
+                <p>A segurança física é garantida por uma <strong>fechadura solenoide</strong> de alta resistência. Em estado de repouso (sem energia), a porta permanece estritamente bloqueada.</p>
+                <p>Quando o NodeMCU valida o acesso, ele envia sinal para um módulo relé, que energiza a bobina do solenoide, retraindo o pino de metal e permitindo a abertura da porta.</p>
+            </div>
+        </div>
+
+        <div class="card" style="margin-bottom: 40px; text-align: center;">
+            <h2>Fluxo de Funcionamento</h2>
+            <p>O fluxo de dados do SmartLock garante baixíssima latência na identificação e abertura da porta.</p>
+            
+            <div style="display: inline-flex; align-items: center; gap: 15px; font-family: monospace; font-size: 0.85rem; margin-top: 20px; background: #0f172a; padding: 20px; border-radius: 8px;">
+                <div style="padding: 15px; border: 1px solid var(--accent-hardware); background: rgba(249, 115, 22, 0.05); border-radius: 8px;">
+                    <span style="color: var(--accent-hardware); display: block;">📷 CAM</span>Captura
+                </div>
+                <span style="color: var(--text-muted);">➔</span>
+                <div style="padding: 15px; border: 1px solid var(--accent-ia); background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
+                    <span style="color: var(--accent-ia); display: block;">🧠 PYTHON IA</span>Processa
+                </div>
+                <span style="color: var(--text-muted);">➔</span>
+                <div style="padding: 15px; border: 1px dashed var(--text-muted); background: var(--bg-card); border-radius: 8px;">
+                    <span style="color: var(--text-muted); display: block;">📡 MQTT</span>Broker
+                </div>
+                <span style="color: var(--text-muted);">➔</span>
+                <div style="padding: 15px; border: 1px solid var(--accent-hardware); background: rgba(249, 115, 22, 0.05); border-radius: 8px;">
+                    <span style="color: var(--accent-hardware); display: block;">⚙️ NODEMCU</span>Abre
+                </div>
+                <span style="color: var(--text-muted);">➔</span>
+                <div style="padding: 15px; border: 1px solid var(--accent-ia); background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
+                    <span style="color: var(--accent-ia); display: block;">💾 MYSQL</span>Grava
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

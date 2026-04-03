@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartLock | Plataforma</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="nav-container">
+            <a href="index.html" class="logo">🔐 Smart<span>Lock</span></a>
+            <ul class="nav-links">
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="plataforma.html" class="active">PLATAFORMA</a></li>
+                <li><a href="dispositivo.html">DISPOSITIVO</a></li>
+                <li><a href="aplicativo.html">APLICATIVO</a></li>
+                <li><a href="projeto.html">PROJETO</a></li>
+                <li><a href="arquitetura.html">ARQUITETURA</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <main>
+        <div style="text-align: center; margin-bottom: 40px;">
+            <h1>Terminal de Reconhecimento</h1>
+            <p>Demonstração da interface de operação e gerenciamento de usuários cadastrados.</p>
+        </div>
+
+        <div class="grid-2">
+            
+            <div class="card" style="padding: 20px;">
+                <h3 style="margin-bottom: 15px;">Terminal de Acesso</h3>
+                <div style="background-color: #000; border-radius: 8px; overflow: hidden; margin-bottom: 20px; height: 400px; display: flex; align-items: center; justify-content: center; border: 1px solid #334155; position: relative;">
+                    <div style="width: 100%; height: 100%; background: linear-gradient(0deg, rgba(15,23,42,1) 0%, rgba(0,0,0,0) 50%); position: absolute; top: 0; left: 0;"></div>
+                    <p style="color: #475569; font-weight: bold; font-family: monospace; z-index: 1;">[ FEED DA WEBCAM EM TEMPO REAL ]</p>
+                </div>
+                
+                <div style="display: flex; justify-content: center; gap: 15px;">
+                    <button class="btn" style="background-color: #10b981;">Desbloquear Porta</button>
+                    <button class="btn" style="background-color: #3b82f6;">Cadastrar Novo Rosto</button>
+                </div>
+            </div>
+
+            <div class="card" style="padding: 20px;">
+                <h3 style="margin-bottom: 15px;">Usuários Autorizados</h3>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Lista de perfis biométricos registrados no banco de dados local.</p>
+                
+                <div style="display: flex; flex-direction: column; gap: 10px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
+                        <span style="font-weight: bold;">João Henrique</span>
+                        <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
+                        <span style="font-weight: bold;">Usuario_Exemplo_01</span>
+                        <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
+                        <span style="font-weight: bold;">Usuario_Exemplo_02</span>
+                        <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 20px; padding: 15px; border: 1px dashed #334155; border-radius: 8px;">
+                        <p style="font-size: 0.8rem; color: #475569; margin: 0;">O administrador pode revogar acessos instantaneamente, excluindo o perfil biométrico do banco de dados.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="card" style="margin-top: 30px;">
+            <h2>Como o sistema identifica usuários?</h2>
+            <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8; margin-top: 15px;">
+                <li>Ao clicar em <strong>"Desbloquear"</strong>, o frame da câmera é capturado e enviado ao motor de IA.</li>
+                <li>A biblioteca <strong>DeepFace</strong> realiza a extração de embeddings e compara com as fotos na pasta <code>banco_rostos</code>.</li>
+                <li>Se houver correspondência, o sistema publica via <strong>MQTT</strong> o comando de abertura.</li>
+                <li>O painel lateral permite a <strong>gestão em tempo real</strong>, garantindo controle total sobre quem pode ou não acessar o ambiente físico.</li>
+            </ul>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 João Henrique Corrêa de Araújo | Faculdade Nova Roma</p>
+    </footer>
+</body>
+</html>
