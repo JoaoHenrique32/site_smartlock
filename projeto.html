@@ -23,59 +23,51 @@
 
     <main>
         <div style="text-align: center; margin-bottom: 50px;">
-            <h1>Executando o Sistema</h1>
-            <p style="max-width: 800px; margin: 0 auto;">Este é um guia prático para desenvolvedores que desejam replicar o ambiente do SmartLock e rodar o código-fonte em suas próprias máquinas.</p>
+            <h1>Guia de Implantação</h1>
+            <p style="max-width: 800px; margin: 0 auto;">Este é o manual de execução oficial do SmartLock. Siga a ordem de inicialização abaixo para replicar e conectar todas as camadas do ecossistema distribuído na sua máquina local.</p>
         </div>
 
         <div class="card">
-            <h2>Guia de Execução</h2>
-            
-            <div style="margin-top: 20px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
-                <h3>Ponto de Partida: Clonar o Repositório</h3>
-                <p>O primeiro passo é obter os arquivos do projeto. Abra o terminal (no Linux/Mac) ou o prompt de comando/PowerShell (no Windows) e execute:</p>
-                <div class="code-block">
-                    git clone https://github.com/JoaoHenrique32/sistema_smartlock
-                </div>
-                <p>Isso criará uma pasta com todo o código do sistema e os arquivos de configuração.</p>
-            </div>
+            <h2>Passo a Passo de Execução</h2>
 
             <div style="margin-top: 20px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
-                <h3>Ambiente e Dependências</h3>
-                
-                <p><strong>Para o Backend (Django):</strong></p>
+                <h3>1. O Coração da Rede: Broker MQTT (Docker)</h3>
+                <p>O servidor EMQX, equipado com os certificados de criptografia mTLS, deve ser o primeiro sistema a subir para rotear as mensagens.</p>
+                <div class="code-block">
+                    cd docker/emqx<br>
+                    docker compose up -d
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 10px;">Painel de monitoramento do broker acessível em <code>localhost:18083</code>.</p>
+            </div>
+
+            <div style="margin-top: 30px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
+                <h3>2. Motor de IA e Backend (Python/Django)</h3>
+                <p>Responsável por rodar o DeepFace e processar os frames da câmera web em tempo real.</p>
                 <ul style="padding-left: 20px; color: var(--text-muted); line-height: 2; margin-bottom: 10px;">
-                    <li>Tenha o <strong>Python 3.x</strong> instalado.</li>
-                    <li>Crie um ambiente virtual (opcional, mas recomendado): <code>python -m venv venv</code> e ative-o.</li>
-                    <li>Instale as bibliotecas necessárias com <strong>pip</strong>:</li>
-                    <div class="code-block">
-                        pip install requirements.txt
-                    </div>
+                    <li>Crie o ambiente virtual e instale as bibliotecas de Visão Computacional:</li>
+                    <div class="code-block">pip install -r requirements.txt</div>
+                    <li>Navegue até a pasta raiz do site e inicie o servidor:</li>
+                    <div class="code-block">python manage.py runserver</div>
                 </ul>
+            </div>
 
-                <p><strong>Para o Hardware (NodeMCU):</strong></p>
+            <div style="margin-top: 30px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
+                <h3>3. Painel de Administração (App Flutter)</h3>
+                <p>Levante o aplicativo nativo para gerenciar aprovações pendentes e visualizar a galeria do banco de rostos.</p>
+                <ul style="padding-left: 20px; color: var(--text-muted); line-height: 2; margin-bottom: 10px;">
+                    <li>Em um novo terminal, navegue até a pasta do aplicativo e execute:</li>
+                    <div class="code-block">flutter run -d windows</div>
+                </ul>
+            </div>
+
+            <div style="margin-top: 30px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
+                <h3>4. Dispositivo Físico (NodeMCU / ESP8266)</h3>
+                <p>Compile e grave o firmware em C++ na placa responsável pelo acionamento da porta.</p>
                 <ul style="padding-left: 20px; color: var(--text-muted); line-height: 2;">
-                    <li>Tenha a <strong>Arduino IDE</strong> ou o **VS Code com PlatformIO** instalados.</li>
-                    <li>No gerenciador de bibliotecas, instale: <code>ESP8266WiFi</code>, <code>PubSubClient</code> (por Nick O'Leary), e <code>ArduinoJson</code> (por Benoit Blanchon).</li>
+                    <li>Abra a pasta do hardware no <strong>VS Code com a extensão PlatformIO</strong>.</li>
+                    <li>No arquivo <code>secrets.h</code>, atualize a variável do IP do servidor MQTT (o endereço IPv4 da sua máquina atual).</li>
+                    <li>Conecte o NodeMCU via cabo USB e clique no botão de <strong>Upload</strong> na barra inferior.</li>
                 </ul>
-            </div>
-
-            <div style="margin-top: 20px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
-                <h3>Configuração do Banco de Dados e MQTT</h3>
-                <p>O sistema depende de um banco de dados **MySQL** e um broker **EMQX**. A forma mais fácil de subir esses serviços é utilizando **Docker**.</p>
-                <p>Verifique o arquivo <code>settings.py</code> do Django e certifique-se de que as credenciais do banco de dados (usuário, senha, banco) estejam corretas. No código do NodeMCU, configure o endereço IP do broker MQTT.</p>
-            </div>
-
-            <div style="margin-top: 20px; border-left: 2px solid var(--primary-blue); padding-left: 20px;">
-                <h3>Rodando o Código</h3>
-                
-                <p><strong>Iniciando o Servidor Web (Django):</strong></p>
-                <div class="code-block">
-                    python manage.py runserver
-                </div>
-                <p>Isso fará com que a plataforma fique acessível no seu navegador.</p>
-
-                <p><strong>Carregando o Hardware:</strong></p>
-                <p>Conecte o NodeMCU ao computador via USB. Abra o projeto na sua IDE, selecione a placa **NodeMCU 1.0 (ESP-12E Module)** e a porta COM correspondente, e faça o upload do código.</p>
             </div>
         </div>
     </main>

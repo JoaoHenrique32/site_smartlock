@@ -11,45 +11,65 @@
         <div class="nav-container">
             <a href="index.html" class="logo">🔐 Smart<span>Lock</span></a>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="plataforma.html">Plataforma</a></li>
-                <li><a href="dispositivo.html" class="active">Dispositivo</a></li>
-                <li><a href="aplicativo.html">Aplicativo</a></li>
-                <li><a href="projeto.html">Projeto</a></li>
+                <li><a href="index.html">HOME</a></li>
+                <li><a href="plataforma.html">PLATAFORMA</a></li>
+                <li><a href="dispositivo.html" class="active">DISPOSITIVO</a></li>
+                <li><a href="aplicativo.html">APLICATIVO</a></li>
+                <li><a href="projeto.html">PROJETO</a></li>
                 <li><a href="estrutura.html">ESTRUTURA</a></li>
             </ul>
         </div>
     </header>
 
     <main>
-        <h1>Engenharia de Hardware</h1>
-        <p>A inteligência do software se conecta ao mundo físico através de uma arquitetura IoT robusta e de baixa latência.</p>
+        <h1>Engenharia de Hardware (Protótipo)</h1>
+        <p>A inteligência do software se conecta ao mundo físico através de uma arquitetura IoT robusta. Para esta fase do projeto, utilizamos uma prova de conceito (PoC) visual para validar a latência e a lógica do sistema.</p>
 
         <div class="grid-2">
             <div class="card">
                 <h2>O Cérebro Físico: NodeMCU</h2>
-                <p>O coração do sistema no lado da porta é o microcontrolador <strong>ESP8266-12 V2 (NodeMCU)</strong>. Equipado com conectividade Wi-Fi nativa, ele atua como um "ouvinte" silencioso na rede.</p>
-                <p>Utilizando o protocolo MQTT, ele aguarda instruções criptografadas. Ao receber o comando de status "LIBERADO", ele aciona imediatamente o circuito de potência.</p>
+                <p>O coração do sistema no lado da porta é o microcontrolador <strong>ESP8266-12 V2 (NodeMCU)</strong> programado em C++ através do PlatformIO. Equipado com conectividade Wi-Fi nativa, ele atua como um "ouvinte" blindado na rede.</p>
+                <p>Empregando o protocolo MQTT sobre mTLS, o dispositivo ignora qualquer conexão não assinada, aguardando instruções apenas do broker oficial. Ao processar a string JSON recebida, ele executa o acionamento em milissegundos.</p>
             </div>
 
             <div class="card">
-                <h2>Ação Mecânica: Solenoide</h2>
-                <p>A segurança física é garantida por uma <strong>fechadura solenoide</strong> de alta resistência. Em estado de repouso (sem energia), a porta permanece estritamente bloqueada.</p>
-                <p>Quando o NodeMCU valida o acesso, ele envia sinal para um módulo relé, que energiza a bobina do solenoide, retraindo o pino de metal e permitindo a abertura da porta.</p>
+                <h2>Simulação Mecânica: Indicadores LED</h2>
+                <p>Nesta etapa de prototipagem, a fechadura solenoide física foi substituída por um <strong>sistema de feedback luminoso</strong>, focado em testar a eficiência da mensageria e do DeepFace.</p>
+                <p>Ao receber a instrução de "LIBERADO" da IA, o NodeMCU corta a energia do pino correspondente ao bloqueio (LED Vermelho) e energiza o circuito de liberação (LED Verde). Em um cenário real, esses mesmos pinos lógicos GPIO estariam acoplados a um relé de 5V controlando a trava magnética.</p>
             </div>
         </div>
-
+        
         <div class="card" style="margin-bottom: 40px; text-align: center;">
-            <h2>Fluxo de Funcionamento</h2>
-            <p>O fluxo de dados do SmartLock garante baixíssima latência na identificação e abertura da porta.</p>
+            <h2>Fluxos de Funcionamento</h2>
+            <p style="margin-bottom: 30px;">O ecossistema do SmartLock possui rotas de dados dinâmicas dependendo do nível de autorização do usuário.</p>
             
-            <div style="display: inline-flex; align-items: center; gap: 15px; font-family: monospace; font-size: 0.85rem; margin-top: 20px; background: #0f172a; padding: 20px; border-radius: 8px;">
+                        <h3 style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Caminho 1: Rosto Desconhecido (Solicitação de Cadastro)</h3>
+                        <div style="display: inline-flex; align-items: center; gap: 15px; font-family: monospace; font-size: 0.85rem; background: #0f172a; padding: 15px 20px; border-radius: 8px; flex-wrap: wrap; justify-content: center;">
+                            <div style="padding: 15px; border: 1px solid var(--accent-hardware); background: rgba(249, 115, 22, 0.05); border-radius: 8px;">
+                                <span style="color: var(--accent-hardware); display: block;">📷 CAM</span>Captura
+                            </div>
+                            <span style="color: var(--text-muted);">➔</span>
+                            <div style="padding: 15px; border: 1px dashed var(--text-muted); background: var(--bg-card); border-radius: 8px;">
+                                <span style="color: var(--text-muted); display: block;">📡 MQTT</span>Alerta
+                            </div>
+                            <span style="color: var(--text-muted);">➔</span>
+                            <div style="padding: 15px; border: 1px solid #3b82f6; background: rgba(59, 130, 246, 0.05); border-radius: 8px;">
+                                <span style="color: #3b82f6; display: block;">📱 APP FLUTTER</span>Aprova
+                            </div>
+                            <span style="color: var(--text-muted);">➔</span>
+                            <div style="padding: 15px; border: 1px solid var(--accent-ia); background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
+                                <span style="color: var(--accent-ia); display: block;">💾 SQLITE</span>Salva Perfil
+                            </div>
+                        </div>
+            
+            <h3 style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px;">Caminho 2: Rosto Conhecido (Abertura Imediata)</h3>
+            <div style="display: inline-flex; align-items: center; gap: 15px; font-family: monospace; font-size: 0.85rem; background: #0f172a; padding: 15px 20px; border-radius: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 30px;">
                 <div style="padding: 15px; border: 1px solid var(--accent-hardware); background: rgba(249, 115, 22, 0.05); border-radius: 8px;">
                     <span style="color: var(--accent-hardware); display: block;">📷 CAM</span>Captura
                 </div>
                 <span style="color: var(--text-muted);">➔</span>
                 <div style="padding: 15px; border: 1px solid var(--accent-ia); background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
-                    <span style="color: var(--accent-ia); display: block;">🧠 PYTHON IA</span>Processa
+                    <span style="color: var(--accent-ia); display: block;">🧠 PYTHON</span>Verifica
                 </div>
                 <span style="color: var(--text-muted);">➔</span>
                 <div style="padding: 15px; border: 1px dashed var(--text-muted); background: var(--bg-card); border-radius: 8px;">
@@ -57,14 +77,15 @@
                 </div>
                 <span style="color: var(--text-muted);">➔</span>
                 <div style="padding: 15px; border: 1px solid var(--accent-hardware); background: rgba(249, 115, 22, 0.05); border-radius: 8px;">
-                    <span style="color: var(--accent-hardware); display: block;">⚙️ NODEMCU</span>Abre
-                </div>
-                <span style="color: var(--text-muted);">➔</span>
-                <div style="padding: 15px; border: 1px solid var(--accent-ia); background: rgba(16, 185, 129, 0.05); border-radius: 8px;">
-                    <span style="color: var(--accent-ia); display: block;">💾 MYSQL</span>Grava
+                    <span style="color: var(--accent-hardware); display: block;">⚙️ NODEMCU</span>Abre a Porta
                 </div>
             </div>
+
         </div>
     </main>
+
+    <footer>
+        <p>&copy; 2026 João Henrique Corrêa de Araújo | Faculdade Nova Roma</p>
+    </footer>
 </body>
 </html>

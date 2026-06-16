@@ -24,7 +24,7 @@
     <main>
         <div style="text-align: center; margin-bottom: 40px;">
             <h1>Terminal de Reconhecimento</h1>
-            <p>Demonstração da interface de operação e gerenciamento de usuários cadastrados.</p>
+            <p>Demonstração da interface web da câmera inteligente e do fluxo de reconhecimento biométrico.</p>
         </div>
 
         <div class="grid-2">
@@ -44,7 +44,7 @@
 
             <div class="card" style="padding: 20px;">
                 <h3 style="margin-bottom: 15px;">Usuários Autorizados</h3>
-                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Lista de perfis biométricos registrados no banco de dados local.</p>
+                <p style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 20px;">Lista de perfis sincronizada em tempo real com o backend Python e o App Flutter.</p>
                 
                 <div style="display: flex; flex-direction: column; gap: 10px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
@@ -52,16 +52,16 @@
                         <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
-                        <span style="font-weight: bold;">Usuario_Exemplo_01</span>
+                        <span style="font-weight: bold;">Visitante_Aprovado</span>
                         <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; background: #0f172a; padding: 12px 15px; border-radius: 8px; border: 1px solid #334155;">
-                        <span style="font-weight: bold;">Usuario_Exemplo_02</span>
+                        <span style="font-weight: bold;">Professor_01</span>
                         <span style="color: #ef4444; cursor: pointer; font-size: 1.2rem;" title="Remover Acesso">🗑️</span>
                     </div>
                     
                     <div style="text-align: center; margin-top: 20px; padding: 15px; border: 1px dashed #334155; border-radius: 8px;">
-                        <p style="font-size: 0.8rem; color: #475569; margin: 0;">O administrador pode revogar acessos instantaneamente, excluindo o perfil biométrico do banco de dados.</p>
+                        <p style="font-size: 0.8rem; color: #475569; margin: 0;">O administrador centraliza a gestão pelo App Mobile, podendo aprovar ou revogar acessos instantaneamente via MQTT.</p>
                     </div>
                 </div>
             </div>
@@ -71,10 +71,10 @@
         <div class="card" style="margin-top: 30px;">
             <h2>Como o sistema identifica usuários?</h2>
             <ul style="padding-left: 20px; color: var(--text-muted); line-height: 1.8; margin-top: 15px;">
-                <li>Ao clicar em <strong>"Desbloquear"</strong>, o frame da câmera é capturado e enviado ao motor de IA.</li>
-                <li>A biblioteca <strong>DeepFace</strong> realiza a extração de embeddings e compara com as fotos na pasta <code>banco_rostos</code>.</li>
-                <li>Se houver correspondência, o sistema publica via <strong>MQTT</strong> o comando de abertura.</li>
-                <li>O painel lateral permite a <strong>gestão em tempo real</strong>, garantindo controle total sobre quem pode ou não acessar o ambiente físico.</li>
+                <li>Ao tentar acessar, o frame da câmera web é convertido para <strong>Base64</strong> e enviado ao servidor Django.</li>
+                <li>A inteligência artificial <strong>DeepFace</strong> extrai os <i>embeddings</i> e verifica a identidade do rosto comparando-o com o <code>banco_rostos</code> físico e o SQLite.</li>
+                <li><strong>Acesso Liberado:</strong> Ocorrendo a correspondência, o Python publica um comando instantâneo no tópico <code>t/fechadura</code> do broker <strong>EMQX</strong> para o NodeMCU abrir a porta.</li>
+                <li><strong>Acesso Negado (Cadastro):</strong> Se o rosto for desconhecido, o sistema intercepta o acesso e envia um alerta ao <strong>App Flutter</strong> do administrador, aguardando aprovação remota para liberar a entrada e salvar o perfil.</li>
             </ul>
         </div>
     </main>
